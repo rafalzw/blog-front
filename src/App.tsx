@@ -1,12 +1,13 @@
 import React from 'react';
-import {TopBar} from "./components/TopBar/TopBar";
+import {Topbar} from "./components/Topbar/Topbar";
+import { Single } from './pages/Single/Single';
 import {Home} from "./pages/Home/Home";
 
 function App() {
     return (
         <>
-            <TopBar/>
-            <Home/>
+            <Topbar/>
+            <Single/>
         </>
     );
 }
