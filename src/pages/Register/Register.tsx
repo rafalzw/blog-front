@@ -1,5 +1,6 @@
 import React from 'react';
 import "./register.css"
+import {NavLink} from "react-router-dom";
 
 export const Register = () => {
     return (
@@ -14,7 +15,7 @@ export const Register = () => {
                 <input type="password" className="loginInput" placeholder="Hasło"/>
                 <button className="loginButton">Zarejestruj</button>
             </form>
-            <button className="registerButton">Zaloguj</button>
+            <button className="registerLoginButton"><NavLink className="link" to="/zaloguj">Zaloguj</NavLink></button>
         </div>
     );
 };

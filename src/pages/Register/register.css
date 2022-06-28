@@ -32,7 +32,7 @@
     border: none;
 }
 
-.loginButton {
+.registerButton {
     margin-top: 20px;
     cursor: pointer;
     background-color: lightcoral;
@@ -42,7 +42,7 @@
     padding: 10px;
 }
 
-.registerButton {
+.registerLoginButton {
     position: absolute;
     top: 60px;
     right: 20px;
