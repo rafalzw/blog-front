@@ -3,7 +3,7 @@ import "./topbar.css";
 import {NavLink} from "react-router-dom";
 
 export const Topbar = () => {
-    const user = true;
+    const user = false;
     return (
         <div className="top">
             <div className="topLeft">
