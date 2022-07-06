@@ -11,16 +11,16 @@ import { NotFound } from './pages/404/404';
 
 
 function App() {
-    const user = false;
+    const user = true;
     return (
         <>
             <Topbar/>
             <Routes>
-                <Route path="/rejestracja" element={user ? <Home/> : <Register/>}/>
-                <Route path="/zaloguj" element={user ? <Home/> : <Login/>}/>
-                <Route path="/dodaj-artykul" element={user ? <Write/> : <Register/>}/>
-                <Route path="/artykul/:id" element={<Single/>}/>
-                <Route path="/ustawienia" element={user ? <Settings/> : <Register/>}/>
+                <Route path="/register" element={user ? <Home/> : <Register/>}/>
+                <Route path="/login" element={user ? <Home/> : <Login/>}/>
+                <Route path="/add-post" element={user ? <Write/> : <Register/>}/>
+                <Route path="/posts/:id" element={<Single/>}/>
+                <Route path="/settings" element={user ? <Settings/> : <Register/>}/>
                 <Route path="/" element={<Home/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

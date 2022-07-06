@@ -13,7 +13,7 @@ export const Login = () => {
                 <input type="password" className="loginInput" placeholder="Hasło"/>
                 <button className="loginButton">Zaloguj</button>
             </form>
-            <button className="registerLoginButton"><NavLink className="link" to="/rejestracja">Zarejestruj się</NavLink></button>
+            <button className="registerLoginButton"><NavLink className="link" to="/register">Zarejestruj się</NavLink></button>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import "./topbar.css";
 import {NavLink} from "react-router-dom";
 
 export const Topbar = () => {
-    const user = false;
+    const user = true;
     return (
         <div className="top">
             <div className="topLeft">
@@ -16,7 +16,7 @@ export const Topbar = () => {
                     <li className="topListItem"><NavLink className="link" to="/"><i className="topIcon fa-solid fa-house"></i></NavLink>
                     </li>
                     <li className="topListItem"><NavLink className="link" to="/kontakt">KONTAKT</NavLink></li>
-                    <li className="topListItem"><NavLink className="link" to="/dodaj-artykul">DODAJ ARTYKUŁ</NavLink></li>
+                    <li className="topListItem"><NavLink className="link" to="/add-post">DODAJ ARTYKUŁ</NavLink></li>
                     <li className="topListItem">{user && "WYLOGUJ"}</li>
                 </ul>
             </div>
@@ -31,8 +31,8 @@ export const Topbar = () => {
                         />
                     ) : (
                         <ul className="topList">
-                            <li className="topListItem"><NavLink className="link" to="/zaloguj">ZALOGUJ</NavLink></li>
-                            <li className="topListItem"><NavLink className="link" to="/rejestracja">REJESTRACJA</NavLink></li>
+                            <li className="topListItem"><NavLink className="link" to="/login">ZALOGUJ</NavLink></li>
+                            <li className="topListItem"><NavLink className="link" to="/register">REJESTRACJA</NavLink></li>
                         </ul>
                     )
                 }
