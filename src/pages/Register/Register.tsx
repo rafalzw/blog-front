@@ -52,7 +52,7 @@ export const Register = () => {
                 />
                 <button className="registerButton" type="submit">Zarejestruj</button>
             </form>
-            <button className="registerLoginButton"><NavLink className="link" to="/zaloguj">Zaloguj</NavLink></button>
+            <button className="registerLoginButton"><NavLink className="link" to="/login">Zaloguj</NavLink></button>
             {error && <span style={{color: "darkred", marginTop: "10px"}}>Coś poszło nie tak... Spóbuj ponownie.</span>}
         </div>
     );

@@ -1,9 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./topbar.css";
 import {NavLink} from "react-router-dom";
+import {AuthContext} from "../../context/auth.context";
 
 export const Topbar = () => {
-    const user = false;
+    const context = useContext(AuthContext);
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        context?.addUser(null)
+        context?.logout();
+    };
+
     return (
         <div className="top">
             <div className="topLeft">
@@ -17,16 +25,16 @@ export const Topbar = () => {
                     </li>
                     <li className="topListItem"><NavLink className="link" to="/kontakt">KONTAKT</NavLink></li>
                     <li className="topListItem"><NavLink className="link" to="/add-post">DODAJ ARTYKUŁ</NavLink></li>
-                    <li className="topListItem">{user && "WYLOGUJ"}</li>
+                    <li className="topListItem" onClick={handleLogout}>{context?.user && "WYLOGUJ"}</li>
                 </ul>
             </div>
             <div className="topRight">
                 {
-                    user ? (
+                    context?.user ? (
 
                         <img
                             className="topImg"
-                            src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?cs=srgb&dl=pexels-chloe-1043471.jpg&fm=jpg"
+                            src={context.user.profilePicture}
                             alt=""
                         />
                     ) : (
