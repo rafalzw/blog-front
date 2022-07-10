@@ -19,9 +19,9 @@ interface User {
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User>({email: "", id: "", profilePicture: "", username: ""});
 
-    const addUser = (user: User | null) => {
+    const addUser = (user: User) => {
         setUser(user);
     }
 
@@ -31,10 +31,7 @@ function App() {
             setUser(JSON.parse(storage));
             setIsAuthenticated(true);
         }
-        console.log(storage)
-
-    }, [])
-        console.log(user)
+    }, []);
 
     return (
         <>

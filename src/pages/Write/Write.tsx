@@ -1,22 +1,91 @@
-import React from 'react';
+import axios from 'axios';
+import React, {FormEvent, useContext, useState} from 'react';
+import {apiUrl} from "../../config/api";
+import {AuthContext} from "../../context/auth.context";
 import "./write.css"
 
+interface User {
+    id: string;
+    username: string;
+    email: string;
+    profilePicture: string;
+}
+
 export const Write = () => {
+    const [title, setTitle] = useState<string>("");
+    const [content, setContent] = useState<string>("");
+    const [file, setFile] = useState<any>(null);
+    const {user} = useContext(AuthContext);
+
+    const handleChange = (e: any) => {
+        setFile(e.target.files[0])
+    };
+
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('userId', user.id)
+        formData.append('title', title)
+        formData.append('content', content)
+        formData.append('photo', file)
+
+        console.log(formData)
+
+        try {
+           const res = await axios.post(`${apiUrl}/posts`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                transformRequest: (data) => {
+                    return data
+                },
+            });
+           window.location.replace("/posts/" + res.data.id)
+
+        } catch(error) {
+            console.log(error)
+        }
+    };
+
     return (
         <div className="write">
-            <img src="https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="writeImg"/>
-            <form action="" className="writeForm">
+            {file && (
+                <img
+                    src={URL.createObjectURL(file)}
+                    alt=""
+                    className="writeImg"
+                />
+            )}
+            <form className="writeForm" onSubmit={handleSubmit}>
                 <div className="writeFormGroup">
                     <label htmlFor="fileInput">
                         <i className="writeIcon fa-solid fa-folder-plus"></i>
                     </label>
-                    <input type="file" id="fileInput" style={{display:"none"}}/>
-                    <input type="text" placeholder="Title" className="writeInput" autoFocus={true}/>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        style={{display: "none"}}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        className="writeInput"
+                        autoFocus={true}
+                        onChange={e => setTitle(e.target.value)}
+                    />
                 </div>
                 <div className="writeFormGroup">
-                    <textarea placeholder="Napisz artykół..." className="writeInput writeText"></textarea>
+                    <textarea
+                        placeholder="Napisz artykół..."
+                        className="writeInput writeText"
+                        value={content}
+                        onChange={e => setContent(e.target.value)}
+                    > </textarea>
                 </div>
-                <button className="writeSubmit">Opublikuj</button>
+                <button className="writeSubmit" type="submit">Opublikuj</button>
             </form>
         </div>
     );

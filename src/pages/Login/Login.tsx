@@ -27,8 +27,7 @@ export const Login = () => {
             context.addUser(res.data)
 
         } catch (err) {
-            // dispatch({type: "LOGIN_FAILED"})
-            // auth.logout();
+            console.log(err);
         }
     };
 

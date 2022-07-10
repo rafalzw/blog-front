@@ -1,6 +1,6 @@
-import React from "react";
 import {NavLink} from "react-router-dom";
 import { PostInterface } from "types";
+import {apiUrl} from "../../../config/api";
 import "./post.css"
 
 interface Props {
@@ -9,14 +9,20 @@ interface Props {
 
 export const Post = (props: Props) => {
 
-    const {id, title, content, photo, createdAt} = props.post;
+    const publicFolder = `${apiUrl}/post-photos/`;
+
+    const {id,
+        title,
+        content,
+        photo,
+        createdAt} = props.post;
 
     return (
         <div className='post'>
             {photo && (
                 <img
                     className="postImg"
-                    src={photo}
+                    src={publicFolder + photo}
                     alt=""
                 />
             )}

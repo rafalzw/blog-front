@@ -9,10 +9,10 @@ interface User {
 
 interface AuthContextType {
     isAuthenticated: boolean;
-    user: User | null;
-    addUser: (user: User | null) => void;
+    user: User;
+    addUser: (user: User) => void;
     login: () => void;
     logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<any>(null);
