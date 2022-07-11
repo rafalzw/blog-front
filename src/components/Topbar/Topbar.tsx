@@ -34,11 +34,15 @@ export const Topbar = () => {
             <div className="topRight">
                 {context?.isAuthenticated ? (
                     <NavLink to="/settings">
-                        <img
-                            className="topImg"
-                            src={context.user.profilePicture ? publicFolder + context.user.profilePicture : "https://cdn-icons.flaticon.com/png/512/2985/premium/2985068.png?token=exp=1657565691~hmac=96607bbb5257c9f15655c14825507af6"}
-                            alt=""
-                        />
+                        {context.user.profilePicture ? (
+                            <img
+                                className="topImg"
+                                src={publicFolder + context.user.profilePicture}
+                                alt=""
+                            />
+                        ) : (
+                            <i className="fa-solid fa-user-pen"></i>
+                        )}
                     </NavLink>
                 ) : (
                     <ul className="topList">
