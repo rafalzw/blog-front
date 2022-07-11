@@ -1,9 +1,9 @@
 import React, {FormEvent, useContext, useState} from 'react';
 import {Sidebar} from "../../components/Sidebar/Sidebar";
-import "./settings.css"
 import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
+import "./settings.css"
 
 export const Settings = () => {
     const [file, setFile] = useState<any>(null);
@@ -11,11 +11,11 @@ export const Settings = () => {
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [success, setSuccess] = useState(false)
+    const [success, setSuccess] = useState(false);
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleChange = (e: any) => {
-        setFile(e.target.files[0])
+        setFile(e.target.files[0]);
     };
 
     const handleSubmit = async (e: FormEvent) => {
@@ -23,11 +23,11 @@ export const Settings = () => {
         setSuccess(false);
 
         const formData = new FormData();
-        formData.append('id', user.id)
-        formData.append('username', username)
-        formData.append('email', email)
-        formData.append('password', password)
-        formData.append('photo', file)
+        formData.append('id', user.id);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('photo', file);
 
         try {
             const res = await axios.put(`${apiUrl}/users/${user.id}`, formData, {
@@ -41,7 +41,7 @@ export const Settings = () => {
             localStorage.setItem("user", JSON.stringify(res.data));
             setSuccess(true);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
@@ -62,7 +62,7 @@ export const Settings = () => {
                             />
                         ) : (
                             <img
-                                src={user.profilePicture  ? publicFolder + user.profilePicture : "https://cdn-icons-png.flaticon.com/512/7010/7010068.png"}
+                                src={user.profilePicture ? publicFolder + user.profilePicture : "https://cdn-icons-png.flaticon.com/512/7010/7010068.png"}
                                 alt=""
                             />
                         )}

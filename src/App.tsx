@@ -9,25 +9,20 @@ import {Register} from "./pages/Register/Register";
 import {Route, Routes} from 'react-router-dom';
 import {NotFound} from './pages/404/404';
 import {AuthContext} from './context/auth.context';
-
-interface User {
-    id: string;
-    username: string;
-    email: string;
-    profilePicture: string;
-}
+import {UserInterface} from 'types';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState<User>({email: "", id: "", profilePicture: "", username: ""});
+    const [user, setUser] = useState<UserInterface>({email: "", id: "", profilePicture: "", username: ""});
 
-    const addUser = (user: User) => {
+    const addUser = (user: UserInterface) => {
         setUser(user);
     }
 
     useEffect(() => {
         const storage = localStorage.getItem("user");
         if (storage) {
+
             setUser(JSON.parse(storage));
             setIsAuthenticated(true);
         }

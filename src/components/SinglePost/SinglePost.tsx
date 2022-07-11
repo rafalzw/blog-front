@@ -1,20 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
+import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
 import {PostInterface} from 'types'
-import {AuthContext} from "../../context/auth.context";
 import "./singlePost.css"
 
 export const SinglePost = () => {
-    const location = useLocation()
+    const location = useLocation();
     const path = location.pathname.split("/")[2];
-    const publicFolder = `${apiUrl}/post-photos/`;
     const {user} = useContext(AuthContext);
-
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [update, setUpdate] = useState<any>(false);
+    const publicFolder = `${apiUrl}/post-photos/`;
 
     const [post, setPost] = useState<PostInterface>({
         id: "",
@@ -28,33 +27,34 @@ export const SinglePost = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`${apiUrl}/posts/${path}`)
-            setPost(res.data)
-            setTitle(res.data.title)
-            setContent(res.data.content)
+            const res = await axios.get(`${apiUrl}/posts/${path}`);
+            setPost(res.data);
+            setTitle(res.data.title);
+            setContent(res.data.content);
         })()
     }, [path]);
 
     const handleDelete = async () => {
         try {
-        await axios.delete(`${apiUrl}/posts/${post.id}`, {
-            data: {username: user.username}
-        });
-        window.location.replace("/");
-        } catch (err) {}
+            await axios.delete(`${apiUrl}/posts/${post.id}`, {
+                data: {username: user.username}
+            });
+            window.location.replace("/");
+        } catch (err) {
+        }
     };
 
     const handleUpdate = async () => {
         try {
             await axios.put(`${apiUrl}/posts/${post.id}`, {
-                    user: user.id,
-                    title,
-                    content,
+                user: user.id,
+                title,
+                content,
             });
 
             setUpdate(false);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     };
 
@@ -106,15 +106,15 @@ export const SinglePost = () => {
                         className="singlePostDescInput"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                    /> ) : (
+                    />) : (
                     <p className="singlePostDesc">
                         {content}
                     </p>
-                    ) }
+                )}
                 {update &&
                     <button
-                    className="singlePostButton"
-                    onClick={handleUpdate}
+                        className="singlePostButton"
+                        onClick={handleUpdate}
                     >Zatwierdź
                     </button>
                 }

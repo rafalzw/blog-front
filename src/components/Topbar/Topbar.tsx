@@ -1,14 +1,16 @@
 import React, {useContext} from "react";
-import "./topbar.css";
 import {NavLink} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
+import {apiUrl} from "../../config/api";
+import "./topbar.css";
 
 export const Topbar = () => {
     const context = useContext(AuthContext);
+    const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        context?.addUser(null)
+        context?.addUser(null);
         context?.logout();
     };
 
@@ -21,28 +23,29 @@ export const Topbar = () => {
             </div>
             <div className="topCenter">
                 <ul className="topList">
-                    <li className="topListItem"><NavLink className="link" to="/"><i className="topIcon fa-solid fa-house"></i></NavLink>
+                    <li className="topListItem"><NavLink className="link" to="/"><i
+                        className="topIcon fa-solid fa-house"></i></NavLink>
                     </li>
                     <li className="topListItem"><NavLink className="link" to="/kontakt">KONTAKT</NavLink></li>
                     <li className="topListItem"><NavLink className="link" to="/add-post">DODAJ ARTYKUŁ</NavLink></li>
-                    <li className="topListItem" onClick={handleLogout}>{context?.user && "WYLOGUJ"}</li>
+                    <li className="topListItem" onClick={handleLogout}>{context?.isAuthenticated && "WYLOGUJ"}</li>
                 </ul>
             </div>
             <div className="topRight">
-                {
-                    context?.user ? (
-
+                {context?.isAuthenticated ? (
+                    <NavLink to="/settings">
                         <img
                             className="topImg"
-                            src={context.user.profilePicture}
+                            src={context.user.profilePicture ? publicFolder + context.user.profilePicture : "https://cdn-icons.flaticon.com/png/512/2985/premium/2985068.png?token=exp=1657565691~hmac=96607bbb5257c9f15655c14825507af6"}
                             alt=""
                         />
-                    ) : (
-                        <ul className="topList">
-                            <li className="topListItem"><NavLink className="link" to="/login">ZALOGUJ</NavLink></li>
-                            <li className="topListItem"><NavLink className="link" to="/register">REJESTRACJA</NavLink></li>
-                        </ul>
-                    )
+                    </NavLink>
+                ) : (
+                    <ul className="topList">
+                        <li className="topListItem"><NavLink className="link" to="/login">ZALOGUJ</NavLink></li>
+                        <li className="topListItem"><NavLink className="link" to="/register">REJESTRACJA</NavLink></li>
+                    </ul>
+                )
                 }
                 <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
             </div>

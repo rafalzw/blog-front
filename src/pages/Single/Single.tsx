@@ -1,7 +1,7 @@
 import React from "react";
-import "./single.css"
 import {Sidebar} from "../../components/Sidebar/Sidebar";
 import {SinglePost} from "../../components/SinglePost/SinglePost";
+import "./single.css"
 
 export const Single = () => {
     return (

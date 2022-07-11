@@ -11,7 +11,7 @@ export const Sidebar = () => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque dolorem, expedita facere illum in ipsum magnam, modi nam officiis perspiciatis quaerat quo quod, reiciendis sequi vel veritatis voluptate voluptatibus.</p>
             </div>
             <div className="sidebarItem">
-                <span className="sidebarTitle">POPULARNE #TAGI</span>
+                <span className="sidebarTitle">POPULARNE TAGI</span>
                 <ul className="sidebarList">
                     <li className="sidebarListItem">Node</li>
                     <li className="sidebarListItem">React</li>
@@ -21,7 +21,6 @@ export const Sidebar = () => {
                     <li className="sidebarListItem">Vue</li>
                 </ul>
             </div>
-
         </div>
     )
 }

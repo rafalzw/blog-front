@@ -4,13 +4,6 @@ import {apiUrl} from "../../config/api";
 import {AuthContext} from "../../context/auth.context";
 import "./write.css"
 
-interface User {
-    id: string;
-    username: string;
-    email: string;
-    profilePicture: string;
-}
-
 export const Write = () => {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
@@ -18,23 +11,20 @@ export const Write = () => {
     const {user} = useContext(AuthContext);
 
     const handleChange = (e: any) => {
-        setFile(e.target.files[0])
+        setFile(e.target.files[0]);
     };
-
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('userId', user.id)
-        formData.append('title', title)
-        formData.append('content', content)
-        formData.append('photo', file)
-
-        console.log(formData)
+        formData.append('userId', user.id);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('photo', file);
 
         try {
-           const res = await axios.post(`${apiUrl}/posts`, formData, {
+            const res = await axios.post(`${apiUrl}/posts`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -42,10 +32,10 @@ export const Write = () => {
                     return data
                 },
             });
-           window.location.replace("/posts/" + res.data.id)
+            window.location.replace("/posts/" + res.data.id);
 
-        } catch(error) {
-            console.log(error)
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -85,7 +75,7 @@ export const Write = () => {
                         onChange={e => setContent(e.target.value)}
                     > </textarea>
                 </div>
-                <button className="writeSubmit" type="submit">Opublikuj</button>
+                <button className="writeSubmit" type="submit">Dodaj artykuł</button>
             </form>
         </div>
     );

@@ -1,8 +1,8 @@
 import React, {FormEvent, useState} from 'react';
-import "./register.css"
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
+import "./register.css"
 
 export const Register = () => {
     const [username, setUsername] = useState("");
@@ -21,7 +21,7 @@ export const Register = () => {
             });
             res.data && window.location.replace("/login");
         } catch (err) {
-            setError(true)
+            setError(true);
         }
     };
 

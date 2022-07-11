@@ -1,4 +1,4 @@
-import React, {FormEvent, useContext, useRef} from 'react';
+import React, {FormEvent, useContext, useRef, useState} from 'react';
 import "./login.css"
 import {NavLink} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
@@ -7,27 +7,28 @@ import {apiUrl} from "../../config/api";
 
 export const Login = () => {
     const context = useContext(AuthContext);
+    const [error, setError] = useState(false);
 
     const userRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
-    if(!context) return null;
+    if (!context) return null;
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
+        setError(false);
         try {
             const res = await axios.post(`${apiUrl}/users/login`, {
                 username: userRef.current?.value,
                 password: passwordRef.current?.value,
             })
-            // dispatch({type: "LOGIN_SUCCESS", payload: res.data})
-            localStorage.setItem("user", JSON.stringify(res.data))
+
+            localStorage.setItem("user", JSON.stringify(res.data));
             context.login();
-            context.addUser(res.data)
+            context.addUser(res.data);
 
         } catch (err) {
-            console.log(err);
+            setError(true);
         }
     };
 
@@ -51,7 +52,10 @@ export const Login = () => {
                 />
                 <button className="loginButton" type="submit">Zaloguj</button>
             </form>
-            <button className="registerLoginButton"><NavLink className="link" to="/register">Zarejestruj się</NavLink></button>
+            <button className="registerLoginButton"><NavLink className="link" to="/register">Zarejestruj się</NavLink>
+            </button>
+            {error &&
+                <span style={{color: "darkred", marginTop: "10px"}}>Niepoprawna Nazwa użytkownika lub Hasło. Spóbuj ponownie.</span>}
         </div>
     );
 };
