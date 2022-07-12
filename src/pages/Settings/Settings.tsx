@@ -12,6 +12,7 @@ export const Settings = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleChange = (e: any) => {
@@ -20,6 +21,7 @@ export const Settings = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setError(false);
         setSuccess(false);
 
         const formData = new FormData();
@@ -27,7 +29,7 @@ export const Settings = () => {
         formData.append('username', username);
         formData.append('email', email);
         formData.append('password', password);
-        formData.append('photo', file);
+        file && formData.append('photo', file);
 
         try {
             const res = await axios.put(`${apiUrl}/users/${user.id}`, formData, {
@@ -39,9 +41,10 @@ export const Settings = () => {
                 },
             });
             localStorage.setItem("user", JSON.stringify(res.data));
+            window.location.replace("/");
             setSuccess(true);
         } catch (error) {
-            console.log(error);
+            setError(true);
         }
     };
 
@@ -101,7 +104,10 @@ export const Settings = () => {
                         onChange={e => setPassword(e.target.value)}
                     />
                     <button className="settingsSubmit" type="submit">Zapisz</button>
-                    {success && <span style={{textAlign: "center", color: "green", marginTop: "10px"}}>Pomyślnie zaktualizowano...</span>}
+                    {success &&
+                        <span style={{textAlign: "center", color: "green", marginTop: "10px"}}>Pomyślnie zaktualizowano...</span>}
+                    {error &&
+                        <span style={{color: "darkred", marginTop: "10px"}}>Coś poszło nie tak... Spóbuj ponownie.</span>}
                 </form>
             </div>
             <Sidebar/>
