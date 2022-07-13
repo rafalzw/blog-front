@@ -21,7 +21,7 @@ export const Write = () => {
         formData.append('userId', user.id);
         formData.append('title', title);
         formData.append('content', content);
-        formData.append('photo', file);
+        file && formData.append('photo', file);
 
         try {
             const res = await axios.post(`${apiUrl}/posts`, formData, {

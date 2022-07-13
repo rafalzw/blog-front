@@ -38,7 +38,7 @@ export const Register = () => {
                 />
                 <label htmlFor="">Email</label>
                 <input
-                    type="text"
+                    type="email"
                     className="registerInput"
                     placeholder="Email"
                     onChange={e => setEmail(e.target.value)}

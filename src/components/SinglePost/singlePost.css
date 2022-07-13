@@ -68,6 +68,7 @@
     color: #666;
     font-size: 18px;
     line-height: 24px;
+    text-align: justify;
 }
 
 .singlePostDesc::first-letter {
@@ -81,6 +82,7 @@
     color: #666;
     font-size: 18px;
     line-height: 24px;
+    min-height: 250px;
 }
 
 .singlePostDescInput:focus {
@@ -96,4 +98,11 @@
     border: none;
     cursor: pointer;
     color: white;
+}
+
+.authorImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    object-fit: cover;
 }
