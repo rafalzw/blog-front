@@ -1,10 +1,12 @@
 # JS-blog
 
 ## JS-blog - front v0.1.0
-> Live demo [_here_](https://js-blog.networkmanager.pl/). <!-- If you have the project hosted somewhere, include the link here. -->
+Live demo [_here_](https://js-blog.networkmanager.pl/).
+
+Link to backend repository [_here_](https://github.com/rafalzw/blog-back).
 
 ## Project Status
-Project is: _in progress.
+Project is: in progress.
 
 ## General Information
 - The idea of the project is to repeat and consolidate the knowledge acquired in the one-year MegaK course.
@@ -28,7 +30,7 @@ Project is: _in progress.
 ### - Edit user with possibility to upload image:
 ![settings](./readme/settings.png)
 
-### - Display all posts or posts of a single user:
+### - View all posts or posts of a single user when clicking on the author:
 ![all-posts](./readme/all-posts.png)
 
 ### - Adding new posts only by logged-in user. possibility to upload image:
@@ -43,4 +45,6 @@ Project is: _in progress.
 - add #tags
 - add pagination
 - search engine connection
+- add comments to posts
+- add likes to posts
  
