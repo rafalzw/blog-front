@@ -18,7 +18,7 @@ Project is: _in progress.
 
 
 ## Features
-###List the ready features here:
+### List the ready features here:
 ### - Create new User:
   ![register](./readme/register.png)
 
@@ -39,8 +39,8 @@ Project is: _in progress.
 
 ## TODO
 
-### - implement Redux
-### - add #tags
-### - add pagination
-### - search engine connection
+- implement Redux
+- add #tags
+- add pagination
+- search engine connection
  
