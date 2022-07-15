@@ -5,13 +5,11 @@ import {apiUrl} from "../../config/api";
 import "./topbar.css";
 
 export const Topbar = () => {
-    const context = useContext(AuthContext);
+    const {user, isAuthenticated, logout} = useContext(AuthContext);
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        context?.addUser(null);
-        context?.logout();
+       logout();
     };
 
     return (
@@ -28,16 +26,16 @@ export const Topbar = () => {
                     </li>
                     <li className="topListItem"><NavLink className="link" to="/kontakt">KONTAKT</NavLink></li>
                     <li className="topListItem"><NavLink className="link" to="/add-post">DODAJ ARTYKUŁ</NavLink></li>
-                    <li className="topListItem" onClick={handleLogout}>{context?.isAuthenticated && "WYLOGUJ"}</li>
+                    <li className="topListItem" onClick={handleLogout}>{isAuthenticated && "WYLOGUJ"}</li>
                 </ul>
             </div>
             <div className="topRight">
-                {context?.isAuthenticated ? (
+                {isAuthenticated ? (
                     <NavLink to="/settings">
-                        {context.user.profilePicture ? (
+                        {user.profilePicture ? (
                             <img
                                 className="topImg"
-                                src={publicFolder + context.user.profilePicture}
+                                src={publicFolder + user.profilePicture}
                                 alt=""
                             />
                         ) : (

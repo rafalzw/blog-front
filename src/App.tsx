@@ -13,11 +13,7 @@ import {UserInterface} from 'types';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState<UserInterface>({email: "", id: "", profilePicture: "", username: ""});
-
-    const addUser = (user: UserInterface) => {
-        setUser(user);
-    }
+    const [user, setUser] = useState<UserInterface | null>({email: "", id: "", profilePicture: "", username: ""});
 
     useEffect(() => {
         const storage = localStorage.getItem("user");
@@ -33,9 +29,17 @@ function App() {
             <AuthContext.Provider value={{
                 isAuthenticated,
                 user,
-                addUser,
-                login: () => setIsAuthenticated(true),
-                logout: () => setIsAuthenticated(false),
+                setUser,
+                login: (data: UserInterface) => {
+                    setIsAuthenticated(true);
+                    localStorage.setItem("user", JSON.stringify(data));
+                    setUser(data);
+                },
+                logout: () => {
+                    setIsAuthenticated(false);
+                    localStorage.removeItem('user');
+                    setUser(null);
+                },
             }}>
                 <Topbar/>
                 <Routes>

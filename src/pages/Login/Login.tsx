@@ -6,13 +6,11 @@ import axios from "axios";
 import {apiUrl} from "../../config/api";
 
 export const Login = () => {
-    const context = useContext(AuthContext);
+    const {login} = useContext(AuthContext);
     const [error, setError] = useState(false);
 
     const userRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-
-    if (!context) return null;
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -23,9 +21,7 @@ export const Login = () => {
                 password: passwordRef.current?.value,
             })
 
-            localStorage.setItem("user", JSON.stringify(res.data));
-            context.login();
-            context.addUser(res.data);
+            login(res.data);
 
         } catch (err) {
             setError(true);
