@@ -30,6 +30,9 @@ Project is: in progress.
 ### - Edit user with possibility to upload image:
 ![settings](./readme/settings.png)
 
+### - Delete user account:
+![delete-user](./readme/delete-user.png)
+
 ### - View all posts or posts of a single user when clicking on the author:
 ![all-posts](./readme/all-posts.png)
 
@@ -42,9 +45,9 @@ Project is: in progress.
 ## TODO
 
 - implement Redux
-- add #tags
 - add pagination
 - search engine connection
+- add #tags to posts
 - add comments to posts
 - add likes to posts
  
