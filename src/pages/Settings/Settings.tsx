@@ -7,7 +7,7 @@ import "./settings.css"
 
 export const Settings = () => {
     const [file, setFile] = useState<any>(null);
-    const {user} = useContext(AuthContext);
+    const {user, logout} = useContext(AuthContext);
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -48,12 +48,26 @@ export const Settings = () => {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`${apiUrl}/users/${user.id}`, {
+                data: {id: user.id}
+            });
+            window.location.replace("/");
+            logout();
+        } catch (err) {
+        }
+    };
+
     return (
         <div className="settings">
             <div className="settingsWrapper">
                 <div className="settingsTitle">
                     <span className="settingsUpdateTitle">Edytuj konto</span>
-                    <span className="settingsDeleteTitle">Usuń konto</span>
+                    <span
+                        className="settingsDeleteTitle"
+                        onClick={handleDelete}
+                    >Usuń konto</span>
                 </div>
                 <form action="" className="settingsForm" onSubmit={handleSubmit}>
                     <label>Zdjęcie profilowe</label>
