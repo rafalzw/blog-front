@@ -3,6 +3,7 @@ import {Sidebar} from "../../components/Sidebar/Sidebar";
 import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
+import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
 import "./settings.css"
 
 export const Settings = () => {
@@ -13,6 +14,7 @@ export const Settings = () => {
     const [password, setPassword] = useState<string>("");
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleChange = (e: any) => {
@@ -21,6 +23,7 @@ export const Settings = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         setError(false);
         setSuccess(false);
 
@@ -59,7 +62,7 @@ export const Settings = () => {
         }
     };
 
-    return (
+    return loading ? <LoadingSpinner/> : (
         <div className="settings">
             <div className="settingsWrapper">
                 <div className="settingsTitle">

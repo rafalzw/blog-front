@@ -4,17 +4,21 @@ import {NavLink} from "react-router-dom";
 import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
+import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
 
 export const Login = () => {
     const {login} = useContext(AuthContext);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const userRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         setError(false);
+
         try {
             const res = await axios.post(`${apiUrl}/users/login`, {
                 username: userRef.current?.value,
@@ -22,13 +26,12 @@ export const Login = () => {
             })
 
             login(res.data);
-
         } catch (err) {
             setError(true);
         }
     };
 
-    return (
+    return loading ? <LoadingSpinner/> : (
         <div className="login">
             <span className="loginTitle">Zaloguj</span>
             <form action="" className="loginForm" onSubmit={handleSubmit}>

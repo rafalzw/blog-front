@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {FormEvent, useContext, useState} from 'react';
 import {apiUrl} from "../../config/api";
 import {AuthContext} from "../../context/auth.context";
+import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
 import "./write.css"
 
 export const Write = () => {
@@ -9,6 +10,7 @@ export const Write = () => {
     const [content, setContent] = useState<string>("");
     const [file, setFile] = useState<any>(null);
     const {user} = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: any) => {
         setFile(e.target.files[0]);
@@ -16,6 +18,7 @@ export const Write = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         const formData = new FormData();
         formData.append('userId', user.id);
@@ -39,7 +42,7 @@ export const Write = () => {
         }
     };
 
-    return (
+    return loading ? <LoadingSpinner/> : (
         <div className="write">
             {file && (
                 <img
