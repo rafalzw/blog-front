@@ -21,12 +21,14 @@ export const userSlice = createSlice({
       loginStart: (state) => {
           state.loading = true;
       },
-      loginSuccess: (state, action) => {
+      loginSuccess: (state, action: PayloadAction<any>) => {
           state.loading = false;
+          state.error = false;
           state.user = action.payload
       },
       loginFail: (state) => {
           state.loading = false;
+          state.error = true;
       },
       logout: (state) => {
           return initialState;

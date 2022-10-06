@@ -32,7 +32,7 @@ export const Post = (props: Props) => {
                     <span className="postTag">Frontend</span>
                     <span className="postTag">Java Script</span>
                 </div>
-                <NavLink to={`/posts/${id}`} className="link">
+                <NavLink to={`/post/${id}`} className="link">
                     <span className="postTitle">{title}</span>
                 </NavLink>
                 <hr/>

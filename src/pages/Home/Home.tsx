@@ -14,7 +14,7 @@ export const Home = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`${apiUrl}/posts${search}`)
+            const res = await axios.get(`${apiUrl}/post${search}`)
             setPosts(res.data);
         })()
     }, [search]);

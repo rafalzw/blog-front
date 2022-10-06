@@ -27,7 +27,7 @@ export const SinglePost = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`${apiUrl}/posts/${path}`);
+            const res = await axios.get(`${apiUrl}/post/${path}`);
             setPost(res.data);
             setTitle(res.data.title);
             setContent(res.data.content);
@@ -36,7 +36,7 @@ export const SinglePost = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${apiUrl}/posts/${post.id}`, {
+            await axios.delete(`${apiUrl}/post/${post.id}`, {
                 data: {username: user.username}
             });
             window.location.replace("/");
@@ -46,7 +46,7 @@ export const SinglePost = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`${apiUrl}/posts/${post.id}`, {
+            await axios.put(`${apiUrl}/post/${post.id}`, {
                 user: user.id,
                 title,
                 content,

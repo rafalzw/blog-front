@@ -27,7 +27,7 @@ export const Write = () => {
         file && formData.append('photo', file);
 
         try {
-            const res = await axios.post(`${apiUrl}/posts`, formData, {
+            const res = await axios.post(`${apiUrl}/post`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -35,7 +35,7 @@ export const Write = () => {
                     return data
                 },
             });
-            window.location.replace("/posts/" + res.data.id);
+            window.location.replace("/post/" + res.data.id);
 
         } catch (error) {
             console.log(error);

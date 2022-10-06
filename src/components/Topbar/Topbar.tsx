@@ -1,15 +1,18 @@
-import React, {useContext} from "react";
+import React from "react";
 import {NavLink} from "react-router-dom";
-import {AuthContext} from "../../context/auth.context";
 import {apiUrl} from "../../config/api";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
+import {logout} from "../../redux/userSlice";
 import "./topbar.css";
 
 export const Topbar = () => {
-    const {user, isAuthenticated, logout} = useContext(AuthContext);
+    const { user } = useSelector((state: RootState) => state.user)
+    const dispatch = useDispatch();
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleLogout = () => {
-       logout();
+       dispatch(logout())
     };
 
     return (
@@ -26,11 +29,11 @@ export const Topbar = () => {
                     </li>
                     <li className="topListItem"><NavLink className="link" to="/kontakt">KONTAKT</NavLink></li>
                     <li className="topListItem"><NavLink className="link" to="/add-post">DODAJ ARTYKUŁ</NavLink></li>
-                    <li className="topListItem" onClick={handleLogout}>{isAuthenticated && "WYLOGUJ"}</li>
+                    <li className="topListItem" onClick={handleLogout}>{user && "WYLOGUJ"}</li>
                 </ul>
             </div>
             <div className="topRight">
-                {isAuthenticated ? (
+                {user ? (
                     <NavLink to="/settings">
                         {user.profilePicture ? (
                             <img

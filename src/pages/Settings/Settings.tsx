@@ -35,7 +35,7 @@ export const Settings = () => {
         file && formData.append('photo', file);
 
         try {
-            const res = await axios.put(`${apiUrl}/users/${user.id}`, formData, {
+            const res = await axios.put(`${apiUrl}/user/${user.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -53,7 +53,7 @@ export const Settings = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${apiUrl}/users/${user.id}`, {
+            await axios.delete(`${apiUrl}/user/${user.id}`, {
                 data: {id: user.id}
             });
             window.location.replace("/");
