@@ -1,15 +1,16 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
-import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
 import {PostInterface} from 'types'
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 import "./singlePost.css"
 
 export const SinglePost = () => {
+    const {user} = useSelector((store: RootState) => store.user);
     const location = useLocation();
     const path = location.pathname.split("/")[2];
-    const {user} = useContext(AuthContext);
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [update, setUpdate] = useState<any>(false);
@@ -19,7 +20,6 @@ export const SinglePost = () => {
         id: "",
         title: "",
         content: "",
-        // photo: "",
         createdAt: "",
         updatedAt: "",
         user: {email: "", id: "", username: ""}
@@ -37,7 +37,7 @@ export const SinglePost = () => {
     const handleDelete = async () => {
         try {
             await axios.delete(`${apiUrl}/post/${post.id}`, {
-                data: {username: user.username}
+                data: {username: user?.username}
             });
             window.location.replace("/");
         } catch (err) {
@@ -47,7 +47,7 @@ export const SinglePost = () => {
     const handleUpdate = async () => {
         try {
             await axios.put(`${apiUrl}/post/${post.id}`, {
-                user: user.id,
+                user: user?.id,
                 title,
                 content,
             });
