@@ -14,7 +14,7 @@ export const Register = () => {
         e.preventDefault();
         setError(false);
         try {
-            const res = await axios.post(`${apiUrl}/users/register`, {
+            const res = await axios.post(`${apiUrl}/user/register`, {
                 username,
                 email,
                 password,

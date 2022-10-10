@@ -1,33 +1,32 @@
-import React, {FormEvent, useContext, useRef, useState} from 'react';
-import "./login.css"
+import React, {FormEvent, useRef} from 'react';
 import {NavLink} from "react-router-dom";
-import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
 import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import {useDispatch, useSelector} from "react-redux";
+import {loginFail, loginStart, loginSuccess} from "../../redux/userSlice";
+import {RootState} from "../../redux/store";
+import "./login.css"
 
 export const Login = () => {
-    const {login} = useContext(AuthContext);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const {loading, error} = useSelector((state: RootState) => state.user)
 
     const userRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(false);
+        dispatch(loginStart())
 
         try {
-            const res = await axios.post(`${apiUrl}/users/login`, {
+            const res = await axios.post(`${apiUrl}/user/login`, {
                 username: userRef.current?.value,
                 password: passwordRef.current?.value,
             })
-
-            login(res.data);
+            dispatch(loginSuccess(res.data))
         } catch (err) {
-            setError(true);
+            dispatch(loginFail());
         }
     };
 

@@ -1,14 +1,18 @@
-import React, {FormEvent, useContext, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Sidebar} from "../../components/Sidebar/Sidebar";
-import {AuthContext} from "../../context/auth.context";
 import axios from "axios";
 import {apiUrl} from "../../config/api";
 import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../redux/userSlice";
+import {RootState} from "../../redux/store";
 import "./settings.css"
 
 export const Settings = () => {
+    const {user} = useSelector((store: RootState) => store.user);
+    const dispatch = useDispatch();
     const [file, setFile] = useState<any>(null);
-    const {user, logout} = useContext(AuthContext);
+
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -28,14 +32,14 @@ export const Settings = () => {
         setSuccess(false);
 
         const formData = new FormData();
-        formData.append('id', user.id);
+        user && formData.append('id', user.id);
         formData.append('username', username);
         formData.append('email', email);
         formData.append('password', password);
         file && formData.append('photo', file);
 
         try {
-            const res = await axios.put(`${apiUrl}/users/${user.id}`, formData, {
+            const res = await axios.put(`${apiUrl}/user/${user?.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -53,11 +57,11 @@ export const Settings = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${apiUrl}/users/${user.id}`, {
-                data: {id: user.id}
+            await axios.delete(`${apiUrl}/user/${user?.id}`, {
+                data: {id: user?.id}
             });
             window.location.replace("/");
-            logout();
+            dispatch(logout());
         } catch (err) {
         }
     };
@@ -82,7 +86,7 @@ export const Settings = () => {
                             />
                         ) : (
                             <img
-                                src={user.profilePicture ? publicFolder + user.profilePicture : "https://cdn-icons-png.flaticon.com/512/7010/7010068.png"}
+                                src={user?.profilePicture ? publicFolder + user.profilePicture : "https://cdn-icons-png.flaticon.com/512/7010/7010068.png"}
                                 alt=""
                             />
                         )}
@@ -102,14 +106,14 @@ export const Settings = () => {
                         minLength={3}
                         maxLength={20}
                         required={true}
-                        placeholder={user.username}
+                        placeholder={user?.username}
                         onChange={e => setUsername(e.target.value)}
                     />
                     <label>Email</label>
                     <input
                         type="email"
                         required={true}
-                        placeholder={user.email}
+                        placeholder={user?.email}
                         onChange={e => setEmail(e.target.value)}
                     />
                     <label>Hasło</label>

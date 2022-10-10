@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, {FormEvent, useContext, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {apiUrl} from "../../config/api";
-import {AuthContext} from "../../context/auth.context";
 import {LoadingSpinner} from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 import "./write.css"
 
 export const Write = () => {
+    const {user} = useSelector((store: RootState) => store.user);
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [file, setFile] = useState<any>(null);
-    const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: any) => {
@@ -21,13 +22,13 @@ export const Write = () => {
         setLoading(true);
 
         const formData = new FormData();
-        formData.append('userId', user.id);
+        user && formData.append('userId', user.id);
         formData.append('title', title);
         formData.append('content', content);
         file && formData.append('photo', file);
 
         try {
-            const res = await axios.post(`${apiUrl}/posts`, formData, {
+            const res = await axios.post(`${apiUrl}/post`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -35,7 +36,7 @@ export const Write = () => {
                     return data
                 },
             });
-            window.location.replace("/posts/" + res.data.id);
+            window.location.replace("/post/" + res.data.id);
 
         } catch (error) {
             console.log(error);
