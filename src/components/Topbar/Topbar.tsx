@@ -7,20 +7,24 @@ import {logout} from "../../redux/userSlice";
 import "./topbar.css";
 
 export const Topbar = () => {
-    const { user } = useSelector((state: RootState) => state.user)
+    const {user} = useSelector((state: RootState) => state.user);
     const dispatch = useDispatch();
     const publicFolder = `${apiUrl}/user-photos/`;
 
     const handleLogout = () => {
-       dispatch(logout())
+        dispatch(logout())
     };
 
     return (
         <div className="top">
             <div className="topLeft">
-                <i className="topIcon fa-brands fa-facebook-square"></i>
-                <i className="topIcon fa-brands fa-twitter-square"></i>
-                <i className="topIcon fa-brands fa-instagram-square"></i>
+                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer"><i
+                    className="topIcon fa-brands fa-facebook-square"></i></a>
+                <a href="https://twitter.com/" target="_blank" rel="noreferrer"><i
+                    className="topIcon fa-brands fa-twitter-square"></i></a>
+                <a href="https://www.instagram.com
+" target="_blank" rel="noreferrer"><i
+                    className="topIcon fa-brands fa-instagram-square"></i></a>
             </div>
             <div className="topCenter">
                 <ul className="topList">

@@ -29,9 +29,12 @@ export const Sidebar = () => {
             <div className="sidebarItem">
                 <span className="sidebarTitle">OBSERWUJ NAS</span>
                 <div className="sidebarSocial">
-                    <i className="sidebarIcon fa-brands fa-facebook-square"></i>
-                    <i className="sidebarIcon fa-brands fa-twitter-square"></i>
-                    <i className="sidebarIcon fa-brands fa-instagram-square"></i>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noreferrer"><i
+                        className="sidebarIcon fa-brands fa-facebook-square"></i></a>
+                    <a href="https://twitter.com/" target="_blank" rel="noreferrer"><i
+                        className="sidebarIcon fa-brands fa-twitter-square"></i></a>
+                    <a href="https://www.instagram.com
+" target="_blank" rel="noreferrer"><i className="sidebarIcon fa-brands fa-instagram-square"></i></a>
                 </div>
             </div>
         </div>
